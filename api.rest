@@ -1,0 +1,16 @@
+# Global definitions
+
+http://localhost:8080/e-commerce-back-end
+
+Accept: application/json
+Content-Type: application/json
+
+--
+
+#Request to the test endpoint
+--
+GET /api/test
+
+# Request for nothing
+--
+POST /api/nothing
