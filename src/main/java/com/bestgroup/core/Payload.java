@@ -1,5 +1,7 @@
 package com.bestgroup.core;
 
+import javax.json.bind.annotation.JsonbTransient;
+
 public class Payload extends Result {
 
 	protected Entity entity;
@@ -8,6 +10,7 @@ public class Payload extends Result {
 		this.entity = entity;
 	}
 
+	@JsonbTransient
 	public Entity getEntity() {
 		return this.entity;
 	}

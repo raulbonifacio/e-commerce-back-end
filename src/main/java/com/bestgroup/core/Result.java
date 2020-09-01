@@ -18,5 +18,4 @@ public class Result {
 	public Map<String, String> getErrors() {
 		return this.errors;
 	}
-
 }

@@ -37,6 +37,16 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>3.0.0</version>
+					<configuration>
+						<mainClass>
+							com.bestgroup.business.Application
+						</mainClass>
+					</configuration>
+				</plugin>
+				<plugin>
 					<groupId>org.wildfly.plugins</groupId>
 					<artifactId>wildfly-maven-plugin</artifactId>
 					<version>2.1.0.Beta1</version>

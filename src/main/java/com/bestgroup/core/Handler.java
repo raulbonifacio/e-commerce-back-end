@@ -1,9 +1,10 @@
 package com.bestgroup.core;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
+
+import com.bestgroup.core.exception.HandlerException;
 
 public class Handler {
 
@@ -29,10 +30,10 @@ public class Handler {
 	}
 
 	public Handler() {
-
+		// Also does nothing...
 	}
 
-	public Result handle(Payload payload) {
+	public Result handle(Payload payload) throws HandlerException{
 		return this.nextHandler != null ? this.nextHandler.handle(payload) : payload;
 	}
 
