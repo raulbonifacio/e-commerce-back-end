@@ -16,8 +16,6 @@ public abstract class Facade {
 
 	public Result perform(Operation operation, Entity entity) throws FacadeException, HandlerException {
 
-		System.out.println("Hello there");
-
 		Payload payload = new Payload(entity);
 
 		if (!this.mappedOperations.containsKey(entity.getClass())) {

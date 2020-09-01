@@ -5,16 +5,15 @@ import com.bestgroup.core.Payload;
 import com.bestgroup.core.exception.HandlerException;
 import com.bestgroup.core.handler.ValidationHandler;
 
-public class ValidatePermissionName extends ValidationHandler {
+public class ValidatePermissionDescription extends ValidationHandler {
 
-	public ValidatePermissionName(Handler nextHandler) {
+	public ValidatePermissionDescription(Handler nextHandler) {
 		super(nextHandler);
 	}
-
+	
 	@Override
 	public Payload validate(Payload payload) throws HandlerException {
-		System.out.println("Validating permission name.");
+		System.out.println("Validating permission description.");
 		return super.validate(payload);
 	}
-
 }

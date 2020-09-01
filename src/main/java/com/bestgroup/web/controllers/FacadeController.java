@@ -31,9 +31,10 @@ public class FacadeController<T extends Entity> {
 
 	protected Response performFacadeMethod(FacadeMethod method, Entity entity) {
 		try {
-			return Response.ok(method.perform(facade, entity)).build();
+			return Response.ok(method.perform(this.facade, entity)).build();
 		} catch (Exception exception) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(exception).build();
+			//return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(exception).build();
+			throw new WebApplicationException(exception);
 		}
 	}
 
@@ -41,7 +42,7 @@ public class FacadeController<T extends Entity> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response create(T entity) {
-		return performFacadeMethod(Facade::create, entity);
+		return this.performFacadeMethod(Facade::create, entity);
 	}
 
 	@PUT
@@ -50,7 +51,7 @@ public class FacadeController<T extends Entity> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(@PathParam("id") Integer id, T entity) {
 		entity.setId(id);
-		return performFacadeMethod(Facade::update, entity);
+		return this.performFacadeMethod(Facade::update, entity);
 	}
 
 	@DELETE
@@ -59,7 +60,7 @@ public class FacadeController<T extends Entity> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response delete(@PathParam("id") Integer id, T entity) {
 		entity.setId(id);
-		return performFacadeMethod(Facade::delete, entity);
+		return this.performFacadeMethod(Facade::delete, entity);
 	}
 
 	@GET
@@ -68,14 +69,14 @@ public class FacadeController<T extends Entity> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response read(@PathParam("id") Integer id, T entity) {
 		entity.setId(id);
-		return performFacadeMethod(Facade::read, entity);
+		return this.performFacadeMethod(Facade::read, entity);
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response read(T entity) {
-		return performFacadeMethod(Facade::read, entity);
+		return this.performFacadeMethod(Facade::read, entity);
 	}
 
 }

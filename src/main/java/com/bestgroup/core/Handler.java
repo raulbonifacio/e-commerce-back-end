@@ -6,13 +6,13 @@ import java.util.function.Function;
 
 import com.bestgroup.core.exception.HandlerException;
 
-public class Handler {
+public abstract class Handler {
 
 	public static Handler chain(List<Function<Handler, Handler>> handlerFactoryChain) {
 
 		Collections.reverse(handlerFactoryChain);
 
-		Handler handlerChain = new Handler() {
+		Handler handlerChain = new Handler(null) {
 			// Does nothing...
 		};
 
@@ -29,11 +29,7 @@ public class Handler {
 		this.nextHandler = nextHandler;
 	}
 
-	public Handler() {
-		// Also does nothing...
-	}
-
-	public Result handle(Payload payload) throws HandlerException{
+	public Result handle(Payload payload) throws HandlerException {
 		return this.nextHandler != null ? this.nextHandler.handle(payload) : payload;
 	}
 
