@@ -1,10 +1,22 @@
 package com.bestgroup.core;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public interface Result<E, R> {
+public class Result {
 
-	public Map<String, E> getErrors();
+	protected List<Entity> entities = new ArrayList<>();
 
-	public Map<String, R> getResults();
+	protected Map<String, String> errors = new HashMap<>();
+
+	public List<Entity> getEntities() {
+		return this.entities;
+	}
+
+	public Map<String, String> getErrors() {
+		return this.errors;
+	}
+
 }

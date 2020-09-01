@@ -1,10 +1,19 @@
-
 package com.bestgroup.core;
 
-import java.util.Map;
+public class Payload extends Result {
 
-public interface Payload<E, R, I> extends Result<E, R> {
+	protected Entity entity;
 
-	public Map<String, I> getInput();
+	public Payload(Entity entity) {
+		this.entity = entity;
+	}
+
+	public Entity getEntity() {
+		return this.entity;
+	}
+
+	public void setEntity(Entity entity) {
+		this.entity = entity;
+	}
 
 }
