@@ -1,7 +1,6 @@
 package com.bestgroup.web.controllers;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -34,6 +33,7 @@ public class FacadeController<T extends DomainEntity> {
 		try {
 			return Response.ok(method.perform(this.facade, entity)).build();
 		} catch (Exception exception) {
+			//return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(exception).build();
 			throw new WebApplicationException(exception);
 		}
 	}
@@ -41,7 +41,6 @@ public class FacadeController<T extends DomainEntity> {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Transactional
 	public Response create(T entity) {
 		return this.performFacadeMethod(Facade::create, entity);
 	}
@@ -50,7 +49,6 @@ public class FacadeController<T extends DomainEntity> {
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Transactional
 	public Response update(@PathParam("id") Long id, T entity) {
 		entity.setId(id);
 		return this.performFacadeMethod(Facade::update, entity);
@@ -60,7 +58,6 @@ public class FacadeController<T extends DomainEntity> {
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Transactional
 	public Response delete(@PathParam("id") Long id, T entity) {
 		entity.setId(id);
 		return this.performFacadeMethod(Facade::delete, entity);
@@ -70,7 +67,6 @@ public class FacadeController<T extends DomainEntity> {
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Transactional
 	public Response read(@PathParam("id") Long id, T entity) {
 		entity.setId(id);
 		return this.performFacadeMethod(Facade::read, entity);
@@ -79,7 +75,6 @@ public class FacadeController<T extends DomainEntity> {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Transactional
 	public Response read(T entity) {
 		return this.performFacadeMethod(Facade::read, entity);
 	}
