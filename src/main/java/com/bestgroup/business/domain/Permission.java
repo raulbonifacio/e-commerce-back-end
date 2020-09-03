@@ -1,8 +1,12 @@
-package com.bestgroup.business.modules.permission;
+package com.bestgroup.business.domain;
 
-import com.bestgroup.core.Entity;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-public class Permission extends Entity {
+import com.bestgroup.core.DomainEntity;
+
+@Entity
+public class Permission extends DomainEntity {
 
 	protected String name;
 	protected String description;

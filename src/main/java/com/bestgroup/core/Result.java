@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class Result {
 
-	protected List<Entity> entities = new ArrayList<>();
+	protected List<DomainEntity> entities = new ArrayList<>();
 
 	protected Map<String, String> errors = new HashMap<>();
 
-	public List<Entity> getEntities() {
+	public List<DomainEntity> getEntities() {
 		return this.entities;
 	}
 

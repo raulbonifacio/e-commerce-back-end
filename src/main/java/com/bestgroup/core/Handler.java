@@ -12,7 +12,7 @@ public abstract class Handler {
 
 		Collections.reverse(handlerFactoryChain);
 
-		Handler handlerChain = new Handler(null) {
+		Handler handlerChain = new Handler() {
 			// Does nothing...
 		};
 
@@ -23,14 +23,18 @@ public abstract class Handler {
 		return handlerChain;
 	}
 
-	protected Handler nextHandler;
+	protected Handler next;
 
-	public Handler(Handler nextHandler) {
-		this.nextHandler = nextHandler;
+	public Handler() {
+		// Does nothing...
+	}
+
+	public Handler(Handler next) {
+		this.next = next;
 	}
 
 	public Result handle(Payload payload) throws HandlerException {
-		return this.nextHandler != null ? this.nextHandler.handle(payload) : payload;
+		return this.next != null ? this.next.handle(payload) : payload;
 	}
 
 }
