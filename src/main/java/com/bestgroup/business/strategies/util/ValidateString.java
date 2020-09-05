@@ -23,7 +23,7 @@ public class ValidateString extends ValidationStrategy<String> {
 
 		payload = super.execute(payload);
 
-		String value = Objects.requireNonNullElse(this.getter.apply(payload.getDomainEntity()), "");
+		String value = Objects.requireNonNullElse(this.getter.apply(payload.getEntity()), "");
 
 		if (this.trim) {
 			value = value.trim();

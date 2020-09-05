@@ -5,7 +5,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Permissions")
-public class Permission extends AccessProtectedEntity {
+public class Permission extends  SoftDeletableEntity {
 
 	protected String name;
 	protected String description;

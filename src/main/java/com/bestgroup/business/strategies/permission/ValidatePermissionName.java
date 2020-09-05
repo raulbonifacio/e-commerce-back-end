@@ -1,7 +1,5 @@
 package com.bestgroup.business.strategies.permission;
 
-import javax.ejb.Stateless;
-
 import com.bestgroup.business.domain.Permission;
 import com.bestgroup.business.strategies.util.ValidateString;
 

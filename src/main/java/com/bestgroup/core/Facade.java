@@ -19,9 +19,10 @@ public abstract class Facade {
 
 	@Transactional
 	protected Result perform(Operation operation, Payload payload) throws FacadeException {
+
 		try {
 
-			DomainEntity entity = payload.getDomainEntity();
+			DomainEntity entity = payload.getEntity();
 
 			if (!this.mappedOperations.containsKey(entity.getClass())) {
 				throw new FacadeException("The entity type is not registered in the facade.");
