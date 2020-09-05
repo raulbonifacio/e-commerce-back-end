@@ -1,12 +1,13 @@
 package com.bestgroup.core;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
 
 import com.bestgroup.core.exception.FacadeException;
-import com.bestgroup.core.exception.HandlerException;
+import static com.bestgroup.core.Facade.Operation.*;
 
 public abstract class Facade {
 
@@ -14,56 +15,70 @@ public abstract class Facade {
 		CREATE, READ, UPDATE, DELETE;
 	}
 
-	protected Map<Class<? extends DomainEntity>, Map<Operation, Handler>> mappedOperations = new HashMap<>();
+	protected Map<Class<? extends DomainEntity>, Map<Operation, List<Strategy>>> mappedOperations = new HashMap<>();
 
 	@Transactional
-	protected Result perform(Operation operation, DomainEntity entity) throws FacadeException, HandlerException {
+	protected Result perform(Operation operation, Payload payload) throws FacadeException {
+		try {
 
-		Payload payload = new Payload(entity);
+			DomainEntity entity = payload.getDomainEntity();
 
-		if (!this.mappedOperations.containsKey(entity.getClass())) {
-			throw new FacadeException("The entity type is not registered in the facade.");
-		} else if (!this.mappedOperations.get(entity.getClass()).containsKey(operation)) {
-			throw new FacadeException("The operation is not registered for the requested entity type.");
+			if (!this.mappedOperations.containsKey(entity.getClass())) {
+				throw new FacadeException("The entity type is not registered in the facade.");
+			} else if (!this.mappedOperations.get(entity.getClass()).containsKey(operation)) {
+				throw new FacadeException("The operation is not registered for the requested entity type.");
+			}
+
+			for (Strategy strategy : this.mappedOperations.get(entity.getClass()).get(operation)) {
+				strategy.execute(payload);
+			}
+
+			return payload;
+
+		} catch (Exception exception) {
+			throw new FacadeException(exception);
 		}
-
-		return this.mappedOperations.get(entity.getClass()).get(operation).handle(payload);
 	}
 
-	public Result create(DomainEntity entity) throws FacadeException, HandlerException {
-		return this.perform(Operation.CREATE, entity);
+	@Transactional
+	public Result create(Payload payload) throws FacadeException {
+		return this.perform(CREATE, payload);
 	}
 
-	public Result update(DomainEntity entity) throws FacadeException, HandlerException {
-		return this.perform(Operation.UPDATE, entity);
+	@Transactional
+	public Result update(Payload payload) throws FacadeException {
+		return this.perform(UPDATE, payload);
 	}
 
-	public Result delete(DomainEntity entity) throws FacadeException, HandlerException {
-		return this.perform(Operation.DELETE, entity);
+	@Transactional
+	public Result delete(Payload payload) throws FacadeException {
+		return this.perform(DELETE, payload);
 	}
 
-	public Result read(DomainEntity entity) throws FacadeException, HandlerException {
-		return this.perform(Operation.READ, entity);
+	@Transactional
+	public Result read(Payload payload) throws FacadeException {
+		return this.perform(READ, payload);
 	}
 
-	protected void onOperation(Operation operation, Class<? extends DomainEntity> entityClass, Handler handler) {
+	protected void onOperation(Operation operation, Class<? extends DomainEntity> entityClass,
+			List<Strategy> strategies) {
 		this.mappedOperations.putIfAbsent(entityClass, new HashMap<>());
-		this.mappedOperations.get(entityClass).putIfAbsent(operation, handler);
+		this.mappedOperations.get(entityClass).putIfAbsent(operation, strategies);
 	}
 
-	public void onCreate(Class<? extends DomainEntity> entityClass, Handler handler) {
-		this.onOperation(Operation.CREATE, entityClass, handler);
+	public void onCreate(Class<? extends DomainEntity> entityClass, List<Strategy> strategies) {
+		this.onOperation(CREATE, entityClass, strategies);
 	}
 
-	public void onUpdate(Class<? extends DomainEntity> entityClass, Handler handler) {
-		this.onOperation(Operation.UPDATE, entityClass, handler);
+	public void onUpdate(Class<? extends DomainEntity> entityClass, List<Strategy> strategies) {
+		this.onOperation(UPDATE, entityClass, strategies);
 	}
 
-	public void onDelete(Class<? extends DomainEntity> entityClass, Handler handler) {
-		this.onOperation(Operation.DELETE, entityClass, handler);
+	public void onDelete(Class<? extends DomainEntity> entityClass, List<Strategy> strategies) {
+		this.onOperation(DELETE, entityClass, strategies);
 	}
 
-	public void onRead(Class<? extends DomainEntity> entityClass, Handler handler) {
-		this.onOperation(Operation.READ, entityClass, handler);
+	public void onRead(Class<? extends DomainEntity> entityClass, List<Strategy> strategies) {
+		this.onOperation(READ, entityClass, strategies);
 	}
 }

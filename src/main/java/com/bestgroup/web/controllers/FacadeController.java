@@ -15,9 +15,9 @@ import javax.ws.rs.core.Response;
 
 import com.bestgroup.core.DomainEntity;
 import com.bestgroup.core.Facade;
+import com.bestgroup.core.Payload;
 import com.bestgroup.core.Result;
 import com.bestgroup.core.exception.FacadeException;
-import com.bestgroup.core.exception.HandlerException;
 
 public class FacadeController<T extends DomainEntity> {
 
@@ -26,14 +26,19 @@ public class FacadeController<T extends DomainEntity> {
 
 	@FunctionalInterface
 	protected interface FacadeMethod {
-		public Result perform(Facade facade, DomainEntity entity) throws FacadeException, HandlerException;
+		public Result perform(Facade facade, Payload payload) throws FacadeException;
 	}
 
 	protected Response performFacadeMethod(FacadeMethod method, DomainEntity entity) {
 		try {
-			return Response.ok(method.perform(this.facade, entity)).build();
+
+			Payload payload = new Payload(entity);
+
+			Result result = method.perform(this.facade, payload);
+
+			return Response.ok(result).build();
+
 		} catch (Exception exception) {
-			//return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(exception).build();
 			throw new WebApplicationException(exception);
 		}
 	}

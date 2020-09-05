@@ -2,7 +2,6 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>bestgroup</groupId>
 	<artifactId>e-commerce-back-end</artifactId>
 	<version>1.0-SNAPSHOT</version>
@@ -10,13 +9,11 @@
 
 	<name>e-commerce-back-end Maven Webapp</name>
 	<url>https://www.bestgroup.com</url>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>14</maven.compiler.source>
 		<maven.compiler.target>14</maven.compiler.target>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
@@ -24,56 +21,72 @@
 			<version>8.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.21</version>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<finalName>e-commerce-back-end</finalName>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>exec-maven-plugin</artifactId>
-					<version>3.0.0</version>
-					<configuration>
-						<mainClass>
-							com.bestgroup.business.Application
-						</mainClass>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.wildfly.plugins</groupId>
-					<artifactId>wildfly-maven-plugin</artifactId>
-					<version>2.1.0.Beta1</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>3.1.0</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>3.0.2</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.8.0</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.22.1</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>3.2.2</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-install-plugin</artifactId>
-					<version>2.5.2</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<version>2.8.2</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>2.1.0.Beta1</version>
+				<configuration>
+					<add-user>
+						<users>
+							<user>
+								<username>username</username>
+								<password>password</password>
+								<groups>
+									<group>admin</group>
+								</groups>
+							</user>
+						</users>
+					</add-user>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>deploy-artifact</goal>
+						</goals>
+						<configuration>
+							<force>true</force>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<version>8.0.21</version>
+							<name>mysql-jdbc-driver</name>
+						</configuration>
+					</execution>
+					<execution>
+						<id>add-datasource</id>
+						<phase>package</phase>
+						<goals>
+							<goal>add-resource</goal>
+						</goals>
+						<configuration>
+							<force>true</force>
+							<address>subsystem=datasources,data-source=MySQL</address>
+							<resources>
+								<resource>
+									<properties>
+										<jndi-name>java:/MySQL</jndi-name>
+										<enabled>true</enabled>
+										<connection-url>jdbc:mysql://localhost:3306/e_commerce_database</connection-url>
+										<driver-class>com.mysql.cj.jdbc.Driver</driver-class>
+										<driver-name>mysql-jdbc-driver</driver-name>
+										<user-name>e_commerce_username</user-name>
+										<password>e_commerce_password</password>
+									</properties>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 </project>

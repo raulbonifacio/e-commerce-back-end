@@ -1,28 +1,27 @@
-package com.bestgroup.business.handlers.util;
+package com.bestgroup.business.strategies.util;
 
 import java.util.Objects;
 import java.util.function.Function;
 
 import com.bestgroup.core.DomainEntity;
-import com.bestgroup.core.Handler;
 import com.bestgroup.core.Payload;
-import com.bestgroup.core.exception.HandlerException;
+import com.bestgroup.core.exception.StrategyException;
 
-public class ValidateString extends ValidationHandler<String> {
+public class ValidateString extends ValidationStrategy<String> {
 
 	protected int maxLength = Integer.MAX_VALUE;
 	protected int minLength = Integer.MIN_VALUE;
 	protected boolean trim = true;
 
-	public <T extends DomainEntity> ValidateString(Handler next, Function<DomainEntity, ? extends T> typeConverter,
+	public <T extends DomainEntity> ValidateString(Function<DomainEntity, ? extends T> typeConverter,
 			Function<T, String> getter, String fieldName) {
-		super(next, typeConverter, getter, fieldName);
+		super(typeConverter, getter, fieldName);
 	}
 
 	@Override
-	public Payload validate(Payload payload) throws HandlerException {
+	public Payload execute(Payload payload) throws StrategyException {
 
-		payload = super.validate(payload);
+		payload = super.execute(payload);
 
 		String value = Objects.requireNonNullElse(this.getter.apply(payload.getDomainEntity()), "");
 

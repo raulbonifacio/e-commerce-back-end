@@ -3,10 +3,9 @@ package com.bestgroup.business.domain;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.bestgroup.core.DomainEntity;
-
 @Entity
-public class Permission extends DomainEntity {
+@Table(name = "Permissions")
+public class Permission extends AccessProtectedEntity {
 
 	protected String name;
 	protected String description;
