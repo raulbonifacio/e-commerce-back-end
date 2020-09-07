@@ -1,6 +1,5 @@
 package com.bestgroup.web;
 
-import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 public class WebApplication extends Application {

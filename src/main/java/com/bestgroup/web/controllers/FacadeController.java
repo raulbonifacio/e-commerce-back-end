@@ -9,10 +9,14 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.bestgroup.business.strategies.util.CreateEntity;
 import com.bestgroup.core.DomainEntity;
 import com.bestgroup.core.Facade;
 import com.bestgroup.core.Payload;
@@ -20,6 +24,15 @@ import com.bestgroup.core.Result;
 import com.bestgroup.core.exception.FacadeException;
 
 public class FacadeController<T extends DomainEntity> {
+
+	@Inject
+	CreateEntity CreateEntity;
+
+	@Context
+	protected HttpHeaders headers;
+
+	@Context
+	protected QueryParam queryParms;
 
 	@Inject
 	protected Facade facade;
@@ -30,6 +43,7 @@ public class FacadeController<T extends DomainEntity> {
 	}
 
 	protected Response performFacadeMethod(FacadeMethod method, DomainEntity entity) {
+
 		try {
 
 			Payload payload = new Payload(entity);

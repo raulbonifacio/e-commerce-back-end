@@ -31,7 +31,7 @@ public abstract class Facade {
 			}
 
 			for (Strategy strategy : this.mappedOperations.get(entity.getClass()).get(operation)) {
-				strategy.execute(payload);
+				strategy.onPayload(payload);
 			}
 
 			return payload;

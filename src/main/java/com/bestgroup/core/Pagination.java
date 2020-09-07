@@ -3,8 +3,8 @@ package com.bestgroup.core;
 public class Pagination {
 
 	protected boolean enabled;
-	protected long pageNumber;
-	protected long pageSize;
+	protected long pageNumber = 1;
+	protected long pageSize = 20;
 
 	public boolean isEnabled() {
 		return enabled;

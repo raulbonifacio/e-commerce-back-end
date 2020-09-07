@@ -8,7 +8,8 @@ public class StrategyException extends Exception {
 		super(message);
 	}
 
-	public StrategyException(Exception exception) { 
-		super(exception);
+	public StrategyException(Throwable throwable) { 
+		super(throwable);
 	}
+
 }

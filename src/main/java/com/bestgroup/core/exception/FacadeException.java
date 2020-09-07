@@ -11,5 +11,6 @@ public class FacadeException extends Exception {
 	public FacadeException(Throwable throwable) { 
 		super(throwable);
 	}
+
 }
 

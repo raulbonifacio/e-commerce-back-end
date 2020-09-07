@@ -19,9 +19,9 @@ public class ValidateString extends ValidationStrategy<String> {
 	}
 
 	@Override
-	public Payload execute(Payload payload) throws StrategyException {
+	public Payload onPayload(Payload payload) throws StrategyException {
 
-		payload = super.execute(payload);
+		payload = super.onPayload(payload);
 
 		String value = Objects.requireNonNullElse(this.getter.apply(payload.getEntity()), "");
 

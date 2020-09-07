@@ -7,8 +7,6 @@ public class ValidatePermissionDescription extends ValidateString {
 
 	public ValidatePermissionDescription() {
 		super(Permission.class::cast, Permission::getDescription, "description");
-		this.maxLength = 10;
-		this.minLength = 10;
 	}
 
 }

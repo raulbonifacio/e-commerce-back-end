@@ -17,7 +17,7 @@ public class CreatePermission implements Strategy {
 	EntityManagerFactory entityManagerFactory;
 
 	@Override
-	public Payload execute(Payload payload) throws StrategyException {
+	public Payload onPayload(Payload payload) throws StrategyException {
 
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 

@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Permissions")
+@Table(name = "permissions")
 public class Permission extends  SoftDeletableEntity {
 
 	protected String name;
