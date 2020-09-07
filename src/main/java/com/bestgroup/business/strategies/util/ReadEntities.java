@@ -9,9 +9,6 @@ import com.bestgroup.core.Pagination;
 import com.bestgroup.core.Payload;
 import com.bestgroup.core.exception.StrategyException;
 
-/**
- * ReadEntities
- */
 public class ReadEntities extends EntityManagerStrategy {
 
 	@Override
