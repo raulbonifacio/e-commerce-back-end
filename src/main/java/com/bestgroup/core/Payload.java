@@ -4,20 +4,20 @@ import javax.json.bind.annotation.JsonbTransient;
 
 public class Payload extends Result {
 
-	protected DomainEntity entity;
+	protected DomainEntity receivedEntity;
 	protected Pagination pagination;
 
-	public Payload(final DomainEntity entity) {
-		this.entity = entity;
+	public Payload(final DomainEntity receivedEntity) {
+		this.receivedEntity = receivedEntity;
 	}
 
 	@JsonbTransient
-	public DomainEntity getEntity() {
-		return entity;
+	public DomainEntity getReceivedEntity() {
+		return receivedEntity;
 	}
 
-	public void setEntity(DomainEntity entity) {
-		this.entity = entity;
+	public void setEntity(DomainEntity receivedEntity) {
+		this.receivedEntity = receivedEntity;
 	}
 
 	@JsonbTransient

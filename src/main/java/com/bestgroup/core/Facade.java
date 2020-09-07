@@ -22,9 +22,11 @@ public abstract class Facade {
 
 		try {
 
-			DomainEntity entity = payload.getEntity();
+			DomainEntity entity = payload.getReceivedEntity();
 
-			if (!this.mappedOperations.containsKey(entity.getClass())) {
+			if (payload.getReceivedEntity() == null) {
+				throw new FacadeException("The payload entity cannot be empty.");
+			} else if (!this.mappedOperations.containsKey(entity.getClass())) {
 				throw new FacadeException("The entity type is not registered in the facade.");
 			} else if (!this.mappedOperations.get(entity.getClass()).containsKey(operation)) {
 				throw new FacadeException("The operation is not registered for the requested entity type.");

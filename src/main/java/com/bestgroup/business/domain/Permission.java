@@ -3,9 +3,11 @@ package com.bestgroup.business.domain;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.bestgroup.core.DomainEntity;
+
 @Entity
 @Table(name = "permissions")
-public class Permission extends  SoftDeletableEntity {
+public class Permission extends DomainEntity {
 
 	protected String name;
 	protected String description;

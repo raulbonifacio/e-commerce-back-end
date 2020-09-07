@@ -4,7 +4,11 @@ import javax.ws.rs.Path;
 
 import com.bestgroup.business.domain.Permission;
 
-@Path("/permission")
+@Path("/permissions")
 public class PermissionController extends FacadeController<Permission> {
+
+	public PermissionController() {
+		super(Permission::new);
+	}
 
 }

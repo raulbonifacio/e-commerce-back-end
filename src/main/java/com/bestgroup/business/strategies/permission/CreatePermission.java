@@ -21,7 +21,7 @@ public class CreatePermission implements Strategy {
 
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-		Permission permission = (Permission) payload.getEntity();
+		Permission permission = (Permission) payload.getReceivedEntity();
 
 		entityManager.persist(permission);
 		

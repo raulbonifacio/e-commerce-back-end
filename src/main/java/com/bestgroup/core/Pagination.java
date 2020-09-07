@@ -2,32 +2,28 @@ package com.bestgroup.core;
 
 public class Pagination {
 
-	protected boolean enabled;
-	protected long pageNumber = 1;
-	protected long pageSize = 20;
+	protected int pageNumber = 1;
+	protected int pageSize = 20;
 
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public long getPageNumber() {
+	public int getPageNumber() {
 		return pageNumber;
 	}
 
-	public void setPageNumber(long pageNumber) {
+	public void setPageNumber(int pageNumber) {
 		this.pageNumber = pageNumber;
 	}
 
-	public long getPageSize() {
+	public int getPageSize() {
 		return pageSize;
 	}
 
-	public void setPageSize(long pageSize) {
+	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	@Override
+	public String toString() {
+		return "Pagination [pageNumber=" + pageNumber + ", pageSize=" + pageSize + "]";
 	}
 
 }
