@@ -13,28 +13,18 @@ Content-Type: application/json; charset=utf-8
 User-Agent: VRC
 Accept: application/json
 
-#Variable declarations
-#id = 1
-
 --
 # End of global definitions
 
 
-
-# Permission resource
-
-
-# Get all permission resources
 --
 GET /permissions
 
 
-# Get a single permission resource
 --
-GET /permissions/34
+GET /permissions/24
 
 
-# Create a permission resource
 --
 POST /permissions
 { 
@@ -42,7 +32,6 @@ POST /permissions
 	"description": "The new permission description"
 }
 
-# Update a permission resource
 --
 PUT /permissions/53
 {
@@ -50,9 +39,8 @@ PUT /permissions/53
 	"description": "The new permission description"
 }
 
-# Delete permission resource
 --
-DELETE /permissions/24
+DELETE /permissions/1
 
 
 

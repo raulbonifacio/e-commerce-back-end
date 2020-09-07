@@ -10,6 +10,7 @@ import com.bestgroup.business.domain.Permission;
 import com.bestgroup.business.strategies.permission.ValidatePermissionDescription;
 import com.bestgroup.business.strategies.permission.ValidatePermissionName;
 import com.bestgroup.business.strategies.util.CreateEntity;
+import com.bestgroup.business.strategies.util.DeleteEntity;
 import com.bestgroup.business.strategies.util.ReadEntities;
 import com.bestgroup.business.strategies.util.UpdateEntity;
 import com.bestgroup.core.Facade;
@@ -22,6 +23,9 @@ public class Application extends Facade {
 
 	@Inject
 	protected UpdateEntity updateEntity;
+
+	@Inject
+	protected DeleteEntity deleteEntity;
 
 	@Inject
 	protected ReadEntities readEntities;
@@ -47,7 +51,10 @@ public class Application extends Facade {
 			updateEntity
 		));
 
+		this.onDelete(Permission.class, Arrays.asList(deleteEntity));
+
 		this.onRead(Permission.class, Arrays.asList(readEntities));
+
 	}
 
 }
